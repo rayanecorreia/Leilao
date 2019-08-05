@@ -1,23 +1,30 @@
 package br.edu.ifal.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Leilao {
 	
-	private List<Lance> lances = new ArrayList<Lance>();
+	private List<Lance> lances;
 	
+	public void propoe(Lance lance) {
+		lances.add(lance);
+		
+		
+	}
 	
 
-	public Leilao(List<lance> lances) {
+	public Leilao(List<Lance> lances) {
 		super();
-		this.lances = lances;
+		lances =  new ArrayList<Lance>();
+		
 	}
 
-	public List<lance> getLances() {
+	public List<Lance> getLances() {
 		return lances;
 	}
 
-	public void setLances(List<lance> lances) {
+	public void setLances(List<Lance> lances) {
 		this.lances = lances;
 	}
 	

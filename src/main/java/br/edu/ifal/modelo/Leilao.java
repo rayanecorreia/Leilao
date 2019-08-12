@@ -13,8 +13,7 @@ public class Leilao {
 		
 	}
 	
-
-	public Leilao(List<Lance> lances) {
+	public Leilao() {
 		super();
 		lances =  new ArrayList<Lance>();
 		

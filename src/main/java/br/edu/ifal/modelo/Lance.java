@@ -2,26 +2,35 @@ package br.edu.ifal.modelo;
 
 public class Lance {
 	
-	private String Usuario;
+	private Usuario usuario;
 	private double valor;
 	
 	
 	
-	public Lance(String usuario, String valor) {
+	public Lance(Usuario usuario, double valor) {
 		super();
-		Usuario = usuario;
+		this.usuario = usuario;
 		this.valor = valor;
 	}
-	public String getUsuario() {
-		return Usuario;
+	
+	
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setUsuario(String usuario) {
-		Usuario = usuario;
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	public String getValor() {
+
+
+
+	public double getValor() {
 		return valor;
 	}
-	public void setValor(String valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 	

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import br.edu.ifal.modelo.Avaliador;
@@ -13,293 +14,326 @@ import br.edu.ifal.modelo.Usuario;
 
 public class AvaliadorTest {
 	
-	private static final Leilao Leilao = null;
+	private Usuario primeiroUsuario;
+	private Usuario segundoUsuario;
+	private Usuario terceiroUsuario;
+	private Usuario quartoUsuario;
+	private Leilao leilao;
+	private Avaliador avaliador;
+	
+	@Before
+	public void inicializacao() {
+		primeiroUsuario = new Usuario("Bruno");
+		segundoUsuario = new Usuario ("Rayane");
+		terceiroUsuario = new Usuario("jessica");
+		quartoUsuario = new Usuario ("Naomy");
+		leilao = new Leilao();
+		avaliador = new Avaliador();
+	}
+	
+	
+	
 	@Test
-	public void AvaliadorDeveFuncionarEmOrdemAleatoria(){
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("Ana");
-		Usuario usuario3 = new Usuario ("Ana");
+	public void avaliadorDeveFuncionarComLancesEmOrdemAleatoria() {
+
 		
-		Leilao leilao = new Leilao();
-		leilao.propoe(new Lance(usuario1, 300));
-		leilao.propoe(new Lance(usuario2, 400));
-		leilao.propoe(new Lance(usuario3, 250));
+		double valorPrimeiroLance = 300;
+		double valorSegundoLance = 400;
+		double valorTerceiroLance = 250;
 		
-		Avaliador avaliador = new Avaliador();
+
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
+		
+	
 		avaliador.avaliar(leilao);
-		double maiorLanceObtido = avaliador.getMaiorLance();
+		double maiorLance = avaliador.getMaiorLance();
 		double maiorLanceEsperado = 400;
 		
-		double menorLanceObtido = avaliador.getMaiorLance();
+		double menorLance = avaliador.getMenorLance();
 		double menorLanceEsperado = 250;
-	  
-	assertEquals(maiorLanceEsperado, maiorLanceObtido, 0.000001);
-	assertEquals(menorLanceEsperado, menorLanceObtido, 0.000001);
+		
+		assertEquals(maiorLanceEsperado, maiorLance, 0.001);
+		assertEquals(menorLance, menorLanceEsperado, 0.001);
 	}
-	@Test 
-	public void AvaliadorDeveFuncionarEmOrdemCrescente(){
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
-		Usuario usuario3 = new Usuario ("luiz");
-		
-		Leilao leilao = new Leilao();
-		leilao.propoe(new Lance(usuario1, 250));
-		leilao.propoe(new Lance(usuario2, 300));
-		leilao.propoe(new Lance(usuario3, 400));
-		
-		Avaliador avaliador = new Avaliador();
-		avaliador.avaliar(leilao);
-		double menorLanceObtido = avaliador.getMenorlance();
-		double menorLanceEsperado = 400;
-		
-		double menorLanceObtido1 = avaliador.getMenorlance();
-		double menorLanceEsperado1 = 250;
-		
-		  
-		assertEquals(menorLanceEsperado1, menorLanceObtido1, 0.000001);
-		assertEquals(menorLanceEsperado1, menorLanceObtido1, 0.000001);
-		}
+	
 	@Test
-	public void AvaliadorDeveFuncionarEmOrdemDecrescente(){
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
-		Usuario usuario3 = new Usuario ("luiz");
+	public void avaliadorDeveFuncionarComLancesEmOrdemCrescente() {
 		
-		Leilao leilao = new Leilao();
-		leilao.propoe(new Lance(usuario1, 400));
-		leilao.propoe(new Lance(usuario2, 300));
-		leilao.propoe(new Lance(usuario3, 250));
 		
-		Avaliador avaliador = new Avaliador();
+		double valorPrimeiroLance = 250;
+		double valorSegundoLance = 300;
+		double valorTerceiroLance = 400;
+		
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
+	
 		avaliador.avaliar(leilao);
-		double menorLanceObtido = avaliador.getMenorLance();
-		double menorEsperado = 400;
+		double maiorLance = avaliador.getMaiorLance();
+		double maiorLanceEsperado = 400;
 		
-		double menorLanceObtido1 = avaliador.getMenorLance();
-		double menorLanceEsperado1 = 250;
+		double menorLance = avaliador.getMenorLance();
+		double menorLanceEsperado = 250;
 		
-		  
-		assertEquals(menorLanceEsperado1, menorLanceObtido1, 0.000001);
-		assertEquals(menorLanceEsperado1, menorLanceObtido1, 0.000001);
-		
+		assertEquals(maiorLanceEsperado, maiorLance, 0.001);
+		assertEquals(menorLanceEsperado, menorLance, 0.001);
 	}
+	
+	@Test
+	public void avaliadorDeveFuncionarComLancesEmOrdemDecrescente() {
+	
+		
+		double valorPrimeiroLance = 400;
+		double valorSegundoLance = 300;
+		double valorTerceiroLance = 250;
+	
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
+		
+		
+		avaliador.avaliar(leilao);
+		double maiorLance = avaliador.getMaiorLance();
+		double maiorLanceEsperado = 400;
+		
+		double menorLance = avaliador.getMenorLance();
+		double menorLanceEsperado = 250;
+		
+		assertEquals(maiorLanceEsperado, maiorLance, 0.001);
+		assertEquals(menorLanceEsperado, menorLance, 0.001);
+	}
+	
+	@Test
+	public void top3DeveFuncionarCom3LancesEmOrdemAleatoria() {
+	
 
-	@Test
-	public void avaliarTop3Maiores {
+		double valorPrimeiroLance = 300;
+		double valorSegundoLance = 400;
+		double valorTerceiroLance = 250;
+
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
 		
-		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
 		
-		List<Lance> top3 = avaliador.getTop3Lance();
+		avaliador.setTop3Lances(leilao);
 		
-		double primeiroLanceObtido = top3.get(0).getValor();
-		double segundoLanceObtido = top3.get(1).getValor();
-		double terceiroLanceObtido = top3.get(2).getValor();
-		int tamanhoTop3Obitido = top3.size();
+		List<Lance> top3Lances = avaliador.getTop3Lances();
+		
+		double primeiroLanceObtido = top3Lances.get(0).getValor();
+		double segundoLanceObtido = top3Lances.get(1).getValor();
+		double terceiroLanceObtido = top3Lances.get(2).getValor();
+		int tamanhoTop3LancesObtido = top3Lances.size();
 		
 		double primeiroLanceEsperado = 400;
 		double segundoLanceEsperado = 300;
 		double terceiroLanceEsperado = 250;
-		int tamanhoTop3Esperado = 3;
-		
-		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0,1.);
-		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
-		assertEquals(terceiroLanceEsperado, terceiroLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
-		
-	}
-	
-	@Test
-	public void AvaliarEmOrdemAleatoria {
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
-		Usuario usuario3 = new Usuario ("luiz");
-		
-		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
-		
-		List<Lance> top3 = avaliador.getTop3Lance();
-		
-		double primeiroLanceObtido = top3.get(0).getValor();
-		double segundoLanceObtido = top3.get(1).getValor();
-		double terceiroLanceObtido = top3.get(2).getValor();
-		int tamanhoTop3Obitido = top3.size();
-		
-		double primeiroLanceEsperado = 250;
-		double segundoLanceEsperado = 300;
-		double terceiroLanceEsperado = 400;
-		int tamanhoTop3Esperado = 3;
+		int tamanhoTop3LancesEsperado = 3;
 		
 		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0.1);
 		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
 		assertEquals(terceiroLanceEsperado, terceiroLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
 		
 	}
+	
 	@Test
-	public void avaliadorDeveFuncionarEmOrdemDecrescente{ 
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
-		Usuario usuario3 = new Usuario ("luiz");
+	public void top3DeveFuncionarCom3LancesEmOrdemCrescente() {
+	
+
+		double valorPrimeiroLance = 250;
+		double valorSegundoLance = 300;
+		double valorTerceiroLance = 400;
+
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
 		
-		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
 		
-		List<Lance> top3 = avaliador.getTop3Lance();
+		avaliador.setTop3Lances(leilao);
 		
-		double primeiroLanceObtido = top3.get(0).getValor();
-		double segundoLanceObtido = top3.get(1).getValor();
-		double terceiroLanceObtido = top3.get(2).getValor();
-		int tamanhoTop3Obitido = top3.size();
+		List<Lance> top3Lances = avaliador.getTop3Lances();
+		
+		double primeiroLanceObtido = top3Lances.get(0).getValor();
+		double segundoLanceObtido = top3Lances.get(1).getValor();
+		double terceiroLanceObtido = top3Lances.get(2).getValor();
+		int tamanhoTop3LancesObtido = top3Lances.size();
 		
 		double primeiroLanceEsperado = 400;
 		double segundoLanceEsperado = 300;
 		double terceiroLanceEsperado = 250;
-		int tamanhoTop3Esperado = 3;
-		
-		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0,1.);
-		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
-		assertEquals(terceiroLanceEsperado, terceiroLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
-		
-	
-	
-	}
-	@Test
-	public void avaliadorFuncionarEmOrdemUnica{ 
-		Usuario usuario1 = new Usuario ("Ana");
-		
-		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
-		
-		List<Lance> top3 = avaliador.getTop3Lance();
-		
-		double primeiroLanceObtido = top3.get(0).getValor();
-
-		int tamanhoTop3Obitido = top3.size();
-		
-		double primeiroLanceEsperado = 400;
-		int tamanhoTop3Esperado = 3;
+		int tamanhoTop3LancesEsperado = 3;
 		
 		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
+		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
+		assertEquals(terceiroLanceEsperado, terceiroLanceObtido, 0.1);
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
 		
-	
-	
 	}
+	
 	@Test
-	public void avaliadorfuncionarSegundoLance{ 
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
+	public void top3DeveFuncionarCom3LancesEmOrdemDecrescente() {
+	
+
+		double valorPrimeiroLance = 400;
+		double valorSegundoLance = 300;
+		double valorTerceiroLance = 250;
+
+		Leilao leilao = new Leilao();
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
 		
 		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
+		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3 = avaliador.getTop3Lance();
+		List<Lance> top3Lances = avaliador.getTop3Lances();
 		
-		double primeiroLanceObtido = top3.get(0).getValor();
-		double segundoLanceObtido = top3.get(1).getValor();
-		int tamanhoTop3Obitido = top3.size();
+		double primeiroLanceObtido = top3Lances.get(0).getValor();
+		double segundoLanceObtido = top3Lances.get(1).getValor();
+		double terceiroLanceObtido = top3Lances.get(2).getValor();
+		int tamanhoTop3LancesObtido = top3Lances.size();
 		
 		double primeiroLanceEsperado = 400;
 		double segundoLanceEsperado = 300;
-		int tamanhoTop3Esperado = 3;
+		double terceiroLanceEsperado = 250;
+		int tamanhoTop3LancesEsperado = 3;
 		
-		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0,1.);
-		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
-		
-}
-	@Test
-	public void avaliarTerceiroLance{ 
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
-		Usuario usuario3 = new Usuario ("luiz");
-		
-		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
-		
-		List<Lance> top3 = avaliador.getTop3Lance();
-		
-		double primeiroLanceObtido = top3.get(0).getValor();
-		double segundoLanceObtido = top3.get(1).getValor();
-		double terceiroLanceObtido = top3.get(2).getValor();
-		int tamanhoTop3Obitido = top3.size();
-		
-		double primeiroLanceEsperado = 250;
-		double segundoLanceEsperado = 300;
-		double terceiroLanceEsperado = 400;
-		int tamanhoTop3Esperado = 3;
-		
-		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0,1.);
+		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0.1);
 		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
 		assertEquals(terceiroLanceEsperado, terceiroLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
-		
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
+	}
 	
-}
 	@Test
-	public void AvaliarEmQuartoLance{ 
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
-		Usuario usuario3 = new Usuario ("luiz");
-		Usuario usuario4 = new Usuario ("Jose");
+	public void top3DeveFuncionarCom3LancesComMesmoValor() {
 		
-		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
+		double valorPrimeiroLance = 250;
+		double valorSegundoLance = 250;
+		double valorTerceiroLance = 250;
+
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
 		
-		List<Lance> top3 = avaliador.getTop3Lance();
+		avaliador.setTop3Lances(leilao);
 		
-		double primeiroLanceObtido = top3.get(0).getValor();
-		double segundoLanceObtido = top3.get(1).getValor();
-		double terceiroLanceObtido = top3.get(2).getValor();
-		int tamanhoTop3Obitido = top3.size();
+		List<Lance> top3Lances = avaliador.getTop3Lances();
+		
+		double primeiroLanceObtido = top3Lances.get(0).getValor();
+		double segundoLanceObtido = top3Lances.get(1).getValor();
+		double terceiroLanceObtido = top3Lances.get(2).getValor();
+		int tamanhoTop3LancesObtido = top3Lances.size();
 		
 		double primeiroLanceEsperado = 250;
 		double segundoLanceEsperado = 250;
 		double terceiroLanceEsperado = 250;
-		int tamanhoTop3Esperado = 3;
+		int tamanhoTop3LancesEsperado = 3;
 		
-		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0,1.);
+		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0.1);
 		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
 		assertEquals(terceiroLanceEsperado, terceiroLanceObtido, 0.1);
-		assertEquals(terceiroLanceEsperado, quartoLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
 		
-}
+	}
+	
+	
 	@Test
-	public void AvaliarQuintoLance{ 
-		Usuario usuario1 = new Usuario ("Ana");
-		Usuario usuario2 = new Usuario ("italo");
-		Usuario usuario3 = new Usuario ("luiz");
-		Usuario usuario4 = new Usuario ("Jose");
-		Usuario usuario5 = new Usuario ("Jose");
+	public void top3DeveFuncionarCom1Lance() {
+		double valorPrimeiroLance = 250;
+
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
 		
-		Avaliador avaliador = new Avaliador();
-		avaliador.setTop3Lances(Leilao);
+		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3 = avaliador.getTop3Lance();
+		List<Lance> top3Lances = avaliador.getTop3Lances();
 		
-		double primeiroLanceObtido = top3.get(0).getValor();
-		double segundoLanceObtido = top3.get(1).getValor();
-		double terceiroLanceObtido = top3.get(2).getValor();
-		int tamanhoTop3Obitido = top3.size();
+		double primeiroLanceObtido = top3Lances.get(0).getValor();
+		int tamanhoTop3LancesObtido = top3Lances.size();
 		
 		double primeiroLanceEsperado = 250;
-		double segundoLanceEsperado = 250;
-		double terceiroLanceEsperado = 250;
-		int tamanhoTop3Esperado = 3;
+		int tamanhoTop3LancesEsperado = 1;
 		
-		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0,1.);
+		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0.1);
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
+		
+	}
+	
+	@Test
+	public void top3DeveFuncionarCom2Lances() {
+
+		double valorPrimeiroLance = 250;
+		double valorSegundoLance = 400;
+
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		
+		avaliador.setTop3Lances(leilao);
+		
+		List<Lance> top3Lances = avaliador.getTop3Lances();
+		
+		double primeiroLanceObtido = top3Lances.get(0).getValor();
+		double segundoLanceObtido = top3Lances.get(1).getValor();
+		int tamanhoTop3LancesObtido = top3Lances.size();
+		
+		double primeiroLanceEsperado = 400;
+		double segundoLanceEsperado = 250;
+		int tamanhoTop3LancesEsperado = 2;
+		
+		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0.1);
+		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
+		
+	}
+	
+	@Test
+	public void top3DeveFuncionarSemNenhumLance() {
+
+		avaliador.setTop3Lances(leilao);
+		
+		List<Lance> top3Lances = avaliador.getTop3Lances();
+		
+		int tamanhoTop3LancesObtido = top3Lances.size();
+
+		int tamanhoTop3LancesEsperado = 0;
+
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
+		
+	}
+	
+	@Test
+	public void top3DeveFuncionarComMaiseDe3Lances() {
+	
+
+		double valorPrimeiroLance = 400;
+		double valorSegundoLance = 300;
+		double valorTerceiroLance = 250;
+		double valorQuartoLance = 500;
+
+		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
+		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
+		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
+		leilao.propoe(new Lance(quartoUsuario, valorQuartoLance));
+		
+		avaliador.setTop3Lances(leilao);
+		
+		List<Lance> top3Lances = avaliador.getTop3Lances();
+		
+		double primeiroLanceObtido = top3Lances.get(0).getValor();
+		double segundoLanceObtido = top3Lances.get(1).getValor();
+		double terceiroLanceObtido = top3Lances.get(2).getValor();
+		int tamanhoTop3LancesObtido = top3Lances.size();
+		
+		double primeiroLanceEsperado = 500;
+		double segundoLanceEsperado = 400;
+		double terceiroLanceEsperado = 300;
+		int tamanhoTop3LancesEsperado = 3;
+		
+		assertEquals(primeiroLanceEsperado, primeiroLanceObtido, 0.1);
 		assertEquals(segundoLanceEsperado, segundoLanceObtido, 0.1);
 		assertEquals(terceiroLanceEsperado, terceiroLanceObtido, 0.1);
-		assertEquals(quartoLanceEsperado, quartoLanceObtido, 0.1);
-		assertEquals(tamanhoTop3Esperado, tamanhoTop3Obitido);	
-		
+		assertEquals(tamanhoTop3LancesEsperado, tamanhoTop3LancesObtido);
+	}
 }
-}
-	
-	
-
-
-

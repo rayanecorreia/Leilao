@@ -16,7 +16,12 @@ public class Usuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
+	public void setEmail(String email) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 

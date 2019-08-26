@@ -24,15 +24,8 @@ public class Avaliador {
 		return maiorDeTodos;
 }
 	
-	public double getMaiorLance() {
-		return maiorDeTodos;
-	} 
-	
-	public double getMenorlance() {
-	return menorDeTodos;
-	}
-	
-	public void setTop3Lances (Leilao leilao) {
+
+	public void setTop3Lances(Leilao leilao) {
 		top3MaioresLances = new ArrayList<Lance>(leilao.getLances());
 		Collections.sort(top3MaioresLances, new Comparator<Lance>(){
 			
@@ -47,7 +40,7 @@ public class Avaliador {
 		top3MaioresLances = top3MaioresLances.subList(0,3);
 	}
 	
-	public double getMaiorLance1() {
+	public double getMaiorLance() {
 		return maiorDeTodos;
 	}
 	public double getMenorLance() {
@@ -56,6 +49,32 @@ public class Avaliador {
 	public List<Lance> getTop3Lance(){
 		return top3MaioresLances;
 	}
+
+
+	public static boolean validarLeilao(Leilao leilao) {
+		for(int i = 0; i < leilao.getLances().size();i++) {
+			Usuario usuario = leilao.getLances().get(i).getUsuario();
+			
+		int qntLances = 0;
+		
+		for(Lance lance : leilao.getLances()) {
+			if(lance.getUsuario().equals(usuario)) {
+							qntLances++;
+
+			}
+		}
+		if(qntLances > 5) {
+			return false;
+				
+			}
+			
+			qntLances = 0;
+		}  
+		
+			return true;
+		
+		}
+		
 
 	
 	}

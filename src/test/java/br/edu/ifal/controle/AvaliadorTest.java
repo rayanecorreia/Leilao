@@ -7,9 +7,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.edu.ifal.construtor.CriadorDeLeilao;
+import br.edu.ifal.construtor.CriadorDeUsuario;
 import br.edu.ifal.modelo.Avaliador;
 import br.edu.ifal.modelo.Lance;
 import br.edu.ifal.modelo.Leilao;
+import br.edu.ifal.modelo.Produto;
 import br.edu.ifal.modelo.Usuario;
 
 public class AvaliadorTest {
@@ -20,6 +23,7 @@ public class AvaliadorTest {
 	private Usuario quartoUsuario;
 	private Leilao leilao;
 	private Avaliador avaliador;
+	private CriadorDeLeilao criadorDeLeilao;
 	
 	@Before
 	public void inicializacao() {
@@ -27,8 +31,11 @@ public class AvaliadorTest {
 		segundoUsuario = new Usuario ("Rayane");
 		terceiroUsuario = new Usuario("jessica");
 		quartoUsuario = new Usuario ("Naomy");
-		leilao = new Leilao();
 		avaliador = new Avaliador();
+		criadorDeLeilao = new CriadorDeLeilao(); 
+		CriadorDeUsuario usuario = new CriadorDeUsuario();
+		
+		
 	}
 	
 	
@@ -41,10 +48,11 @@ public class AvaliadorTest {
 		double valorSegundoLance = 400;
 		double valorTerceiroLance = 250;
 		
-
-		leilao.propoe(new Lance(primeiroUsuario, valorPrimeiroLance));
-		leilao.propoe(new Lance(segundoUsuario, valorSegundoLance));
-		leilao.propoe(new Lance(terceiroUsuario, valorTerceiroLance));
+		leilao = criadorDeLeilao.para(new Produto("TV"))
+				.lance(primeiroUsuario,300)
+				.lance(segundoUsuario,400)
+				.lance(terceiroUsuario,250)
+				.constroi();
 		
 	
 		avaliador.avaliar(leilao);
@@ -120,7 +128,7 @@ public class AvaliadorTest {
 		
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		double primeiroLanceObtido = top3Lances.get(0).getValor();
 		double segundoLanceObtido = top3Lances.get(1).getValor();
@@ -154,7 +162,7 @@ public class AvaliadorTest {
 		
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		double primeiroLanceObtido = top3Lances.get(0).getValor();
 		double segundoLanceObtido = top3Lances.get(1).getValor();
@@ -189,7 +197,7 @@ public class AvaliadorTest {
 		Avaliador avaliador = new Avaliador();
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		double primeiroLanceObtido = top3Lances.get(0).getValor();
 		double segundoLanceObtido = top3Lances.get(1).getValor();
@@ -220,7 +228,7 @@ public class AvaliadorTest {
 		
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		double primeiroLanceObtido = top3Lances.get(0).getValor();
 		double segundoLanceObtido = top3Lances.get(1).getValor();
@@ -248,7 +256,7 @@ public class AvaliadorTest {
 		
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		double primeiroLanceObtido = top3Lances.get(0).getValor();
 		int tamanhoTop3LancesObtido = top3Lances.size();
@@ -272,7 +280,7 @@ public class AvaliadorTest {
 		
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		double primeiroLanceObtido = top3Lances.get(0).getValor();
 		double segundoLanceObtido = top3Lances.get(1).getValor();
@@ -293,7 +301,7 @@ public class AvaliadorTest {
 
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		int tamanhoTop3LancesObtido = top3Lances.size();
 
@@ -319,7 +327,7 @@ public class AvaliadorTest {
 		
 		avaliador.setTop3Lances(leilao);
 		
-		List<Lance> top3Lances = avaliador.getTop3Lances();
+		List<Lance> top3Lances = avaliador.getTop3Lance();
 		
 		double primeiroLanceObtido = top3Lances.get(0).getValor();
 		double segundoLanceObtido = top3Lances.get(1).getValor();
